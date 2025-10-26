@@ -1,0 +1,854 @@
+/* Futuristic Betting App Styles */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-neon: #00ffff;
+  --secondary-neon: #ff0080;
+  --accent-neon: #ffff00;
+  --dark-bg: #000000;
+  --darker-bg: #1a1a1a;
+  --card-bg: rgba(0, 0, 0, 0.8);
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --gradient-1: linear-gradient(135deg, #00ffff, #ff0080, #ffff00);
+  --gradient-2: linear-gradient(45deg, #ff0080, #00ffff);
+  --gradient-3: linear-gradient(90deg, #ffff00, #ff0080, #00ffff);
+}
+
+body {
+  font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  background: var(--dark-bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated Background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+  animation: backgroundShift 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes backgroundShift {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); }
+  33% { transform: translateX(-20px) translateY(-10px) rotate(1deg); }
+  66% { transform: translateX(20px) translateY(10px) rotate(-1deg); }
+}
+
+/* Particle System */
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--primary-neon);
+  border-radius: 50%;
+  animation: float 6s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) translateX(0) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) translateX(100px) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Navbar */
+.navbar {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid #ffff00;
+  box-shadow: 
+    0 0 30px rgba(255, 255, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  animation: slideDown 0.8s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  position: relative;
+}
+
+.logo {
+  font-family: 'Orbitron', monospace;
+  font-size: 28px;
+  font-weight: 900;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  animation: logoGlow 2s ease-in-out infinite alternate;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+@keyframes logoGlow {
+  from {
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  }
+  to {
+    text-shadow: 0 0 50px rgba(0, 255, 255, 0.8), 0 0 80px rgba(255, 0, 128, 0.3);
+  }
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  animation: logoPulse 0.6s ease-in-out;
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1.1); }
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-link:hover::before {
+  left: 100%;
+}
+
+.nav-link:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--primary-neon);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.credits {
+  background: var(--gradient-2);
+  color: var(--dark-bg);
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    0 8px 25px rgba(0, 0, 0, 0.3);
+  animation: creditsPulse 3s ease-in-out infinite;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+@keyframes creditsPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.4),
+      0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 50px rgba(0, 255, 255, 0.6),
+      0 12px 35px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.credits:hover {
+  transform: scale(1.05);
+  animation: creditsBounce 0.6s ease-in-out;
+}
+
+@keyframes creditsBounce {
+  0%, 100% { transform: scale(1.05); }
+  50% { transform: scale(1.15); }
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: var(--gradient-1);
+  color: var(--dark-bg);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    0 8px 25px rgba(0, 0, 0, 0.3);
+  animation: primaryGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes primaryGlow {
+  from {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 255, 0.4),
+      0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+  to {
+    box-shadow: 
+      0 0 50px rgba(0, 255, 255, 0.6),
+      0 12px 35px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 0 60px rgba(0, 255, 255, 0.8),
+    0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: 2px solid var(--primary-neon);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.4),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: var(--gradient-2);
+  color: var(--dark-bg);
+  box-shadow: 0 0 30px rgba(255, 0, 128, 0.4);
+}
+
+.btn-success:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(255, 0, 128, 0.6);
+}
+
+.btn-danger {
+  background: linear-gradient(45deg, #ff4444, #ff0080);
+  color: white;
+  box-shadow: 0 0 30px rgba(255, 68, 68, 0.4);
+}
+
+.btn-danger:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(255, 68, 68, 0.6);
+}
+
+/* Cards */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 0, 0.3);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-1);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 0, 0.5),
+    0 0 30px rgba(255, 255, 0, 0.3);
+  border-color: #ffff00;
+}
+
+/* Glass Effect */
+.glass-effect {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 0, 0.3);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  animation: textShimmer 3s ease-in-out infinite;
+}
+
+@keyframes textShimmer {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Grid Layouts */
+.grid {
+  display: grid;
+  gap: 30px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Animations */
+.pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+  }
+}
+
+/* Form Elements */
+.form-input, .form-select {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(0, 255, 255, 0.2);
+  border-radius: 15px;
+  color: var(--text-primary);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.form-input:focus, .form-select:focus {
+  outline: none;
+  border-color: var(--primary-neon);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.form-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Betting Cards */
+.bet-card, .bet-selection {
+  background: var(--card-bg);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.bet-card::before, .bet-selection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.bet-card:hover::before, .bet-selection:hover::before {
+  left: 100%;
+}
+
+.bet-card:hover, .bet-selection:hover {
+  border-color: var(--primary-neon);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mb-30 { margin-bottom: 30px; }
+.mt-30 { margin-top: 30px; }
+
+/* Mobile/Desktop visibility */
+.desktop-only {
+  display: inline;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none;
+  }
+  
+  .mobile-only {
+    display: inline;
+  }
+  
+  .navbar {
+    padding: 4px 0;
+    min-height: 50px;
+  }
+  
+  .navbar-content {
+    padding: 0 8px;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .nav-link {
+    font-size: 12px;
+    padding: 6px 8px;
+    min-width: auto;
+  }
+  
+  .credits {
+    padding: 6px 8px;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  
+  .btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    margin-left: 4px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+  
+  /* Mobile Betting Controls */
+  .betting-controls {
+    flex-direction: column !important;
+    gap: 15px !important;
+    align-items: stretch !important;
+  }
+  
+  .control-group {
+    width: 100%;
+  }
+  
+  .control-group .form-select {
+    width: 100% !important;
+    min-width: unset !important;
+  }
+  
+  .control-group .btn {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+  }
+  
+  /* Mobile Betting Cards */
+  .bet-card, .bet-selection {
+    padding: 15px !important;
+    margin-bottom: 10px !important;
+    touch-action: manipulation;
+  }
+  
+  .bet-card h4, .bet-selection h4 {
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  .bet-card button, .bet-selection button {
+    padding: 12px 20px !important;
+    font-size: 16px !important;
+    width: 100%;
+    margin-top: 10px;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Mobile Match Cards */
+  .match-card {
+    padding: 15px !important;
+    margin-bottom: 15px !important;
+    touch-action: manipulation;
+  }
+  
+  .match-card button {
+    padding: 12px 16px !important;
+    font-size: 14px !important;
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  
+  /* Mobile Form Elements */
+  .form-input, .form-select {
+    padding: 12px 15px !important;
+    font-size: 16px !important;
+  }
+  
+  .form-label {
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+  }
+  
+  /* Mobile Bet Slip */
+  .bet-slip {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: auto !important;
+    max-height: 40vh !important;
+    border-radius: 15px 15px 0 0 !important;
+    z-index: 1000 !important;
+    padding: 15px !important;
+    margin: 0 !important;
+  }
+  
+  .bet-slip h3 {
+    font-size: 18px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .bet-slip-content {
+    max-height: 30vh !important;
+    overflow-y: auto !important;
+  }
+  
+  /* Mobile Bet Slip Selections */
+  .bet-slip .bet-selection {
+    padding: 8px !important;
+    margin-bottom: 6px !important;
+    font-size: 12px !important;
+  }
+  
+  .bet-slip .bet-selection h4 {
+    font-size: 12px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  .bet-slip .form-label {
+    font-size: 12px !important;
+  }
+  
+  .bet-slip .form-input {
+    padding: 8px 10px !important;
+    font-size: 14px !important;
+  }
+  
+  .bet-slip button {
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+  }
+  
+  /* Mobile Floating Bet Button */
+  .mobile-bet-button {
+    display: block !important;
+  }
+  
+  .mobile-bet-button button {
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+    border-radius: 20px !important;
+  }
+  
+  /* Mobile Betting Page Header */
+  .card h2 {
+    font-size: 24px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .card p {
+    font-size: 14px !important;
+    margin-bottom: 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 4px 0;
+  }
+  
+  .navbar-content {
+    padding: 0 8px;
+    flex-wrap: wrap;
+  }
+  
+  .logo {
+    font-size: 16px;
+  }
+  
+  .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 3px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .nav-link {
+    font-size: 11px;
+    padding: 5px 8px;
+    border-radius: 15px;
+    min-width: auto;
+  }
+  
+  .credits {
+    padding: 5px 8px;
+    font-size: 11px;
+    border-radius: 15px;
+    margin-left: 3px;
+  }
+  
+  .btn {
+    padding: 5px 8px;
+    font-size: 10px;
+    border-radius: 15px;
+    margin-left: 3px;
+  }
+  
+  .card {
+    padding: 15px;
+  }
+}
+
+/* Advanced Hover Effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(0, 255, 255, 0.4);
+}
+
+/* Neon Border Animation */
+.neon-border {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon)) border-box;
+  border-radius: 15px;
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
+  }
+}
+
+/* Loading Animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(0, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-neon);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Success/Error States */
+.success {
+  color: #00ff88;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.error {
+  color: #ff4444;
+  text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--dark-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-2);
+}
