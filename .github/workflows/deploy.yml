@@ -26,22 +26,36 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          cache: 'npm'
-          cache-dependency-path: client/package-lock.json
+
+      - name: Check package files
+        run: |
+          echo "Checking client directory..."
+          ls -la client/ | head -10
+          if [ -f "client/package.json" ]; then
+            echo "✅ package.json found"
+          else
+            echo "❌ package.json not found!"
+            exit 1
+          fi
 
       - name: Install dependencies
         run: |
           cd client
-          npm install
+          npm install --legacy-peer-deps
+        continue-on-error: false
 
       - name: Build
         run: |
           cd client
+          echo "Starting build process..."
           npm run build
+          echo "Build completed!"
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL || 'https://your-backend-url.herokuapp.com' }}
           PUBLIC_URL: /betting-sample
           CI: false
+          NODE_OPTIONS: '--max_old_space_size=4096'
+        continue-on-error: false
 
       - name: Ensure .nojekyll file exists
         run: |
