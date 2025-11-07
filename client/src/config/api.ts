@@ -10,8 +10,15 @@ const getApiUrl = () => {
     return 'http://localhost:5000';
   }
   
-  // For production deployments, use the deployed backend URL
-  // This will be set via environment variable in production
+  // For GitHub Pages or other static hosting, use a separate backend URL
+  // Default to a placeholder - update this with your actual backend URL
+  // You can set REACT_APP_API_URL as a GitHub secret in the workflow
+  if (window.location.hostname.includes('github.io')) {
+    // Return a placeholder - user needs to set REACT_APP_API_URL secret
+    return process.env.REACT_APP_API_URL || 'https://your-backend-url.herokuapp.com';
+  }
+  
+  // For other production deployments
   return window.location.origin.replace(/(:\d+)?$/, ':5000');
 };
 
