@@ -10,7 +10,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-const ODDS_API_KEY = 'af9a528bb40bd1b9e249fd6ffdd71b33';
+const ODDS_API_KEY = '39040549ec613c9fb5283c82f800069b';
 const ODDS_API_BASE = 'https://api.the-odds-api.com/v4';
 
 // Middleware
