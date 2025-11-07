@@ -10,11 +10,9 @@ const getApiUrl = () => {
     return 'http://localhost:5000';
   }
   
-  // For GitHub Pages or other static hosting, use a separate backend URL
-  // Default to a placeholder - update this with your actual backend URL
-  // You can set REACT_APP_API_URL as a GitHub secret in the workflow
-  if (window.location.hostname.includes('github.io')) {
-    // Return a placeholder - user needs to set REACT_APP_API_URL secret
+  // For GitHub Pages or Vercel, use environment variable or default backend URL
+  if (window.location.hostname.includes('github.io') || window.location.hostname.includes('vercel.app')) {
+    // Return environment variable or placeholder
     return process.env.REACT_APP_API_URL || 'https://your-backend-url.herokuapp.com';
   }
   
