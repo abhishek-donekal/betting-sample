@@ -17,9 +17,13 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import './App.css';
 
 function App() {
+  // Get basename for GitHub Pages deployment
+  // For GitHub Pages: /betting-sample, for local: ''
+  const basename = process.env.PUBLIC_URL || (window.location.hostname.includes('github.io') ? '/betting-sample' : '');
+  
   return (
     <AuthProvider>
-      <Router>
+      <Router basename={basename}>
         <div className="App">
           <ParticleSystem />
           <Navbar />

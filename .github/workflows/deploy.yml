@@ -40,15 +40,21 @@ jobs:
           npm run build
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL || 'https://your-backend-url.herokuapp.com' }}
+          PUBLIC_URL: /betting-sample
           CI: false
 
       - name: Verify build output
         run: |
           if [ ! -d "client/build" ]; then
-            echo "Build directory not found!"
+            echo "❌ Build directory not found!"
             exit 1
           fi
-          echo "Build directory exists with $(ls -la client/build | wc -l) items"
+          if [ ! -f "client/build/index.html" ]; then
+            echo "❌ index.html not found in build directory!"
+            exit 1
+          fi
+          echo "✅ Build successful - found $(ls -1 client/build | wc -l) files"
+          ls -la client/build/ | head -10
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
