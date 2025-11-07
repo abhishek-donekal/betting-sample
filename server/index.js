@@ -14,8 +14,16 @@ const ODDS_API_KEY = '39040549ec613c9fb5283c82f800069b';
 const ODDS_API_BASE = 'https://api.the-odds-api.com/v4';
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true
+}));
 app.use(express.json());
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Server is running' });
+});
 
 // Database setup
 const db = new sqlite3.Database('./betting.db');
